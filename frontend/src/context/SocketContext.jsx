@@ -12,10 +12,11 @@ export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const { authUser } = useAuthContext();
-
+  // const ioApiUrl = import.meta.env.VITE_BASE_API_URL;
+  const ioApiUrl = "https://chat-application-ugvx.onrender.com";
   useEffect(() => {
     if (authUser) {
-      const socket = io(import.meta.env.VITE_BASE_API_URL, {
+      const socket = io(ioApiUrl, {
         query: {
           userId: authUser._id,
         },
