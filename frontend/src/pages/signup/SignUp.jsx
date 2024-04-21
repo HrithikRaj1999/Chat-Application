@@ -11,6 +11,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     gender: "",
+    profileImage: null,
   });
   const { loading, signup } = useSignup();
 
@@ -31,6 +32,19 @@ const SignUp = () => {
         </h1>
 
         <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="profileImage" className="label p-2">
+              <span className="text-base label-text">Profile Image</span>
+            </label>
+            <input
+              type="file"
+              name="profileImage"
+              className="w-full input input-bordered h-10"
+              onChange={(e) =>
+                setInputs({ ...inputs, profileImage: e.target.files[0] })
+              }
+            />
+          </div>
           <div>
             <label htmlFor="fullname" className="label p-2">
               <span className="text-base label-text">Full Name</span>

@@ -7,6 +7,7 @@ const Conversation = ({ conversation, lastIdx }) => {
   const isSelected = selectedConversation?._id === conversation._id;
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
+  const url = `${import.meta.env.VITE_BASE_API_URL}${conversation.profilePic}`;
 
   return (
     <>
@@ -16,9 +17,9 @@ const Conversation = ({ conversation, lastIdx }) => {
 			`}
         onClick={() => setSelectedConversation(conversation)}
       >
-        <div className={`avatar ${isOnline ? "online" : ""}`}>
+        <div className={`avatar ${isOnline ? "online" : "offline"}`}>
           <div className="w-12 rounded-full">
-            <img src={conversation.profilePic} alt="user avatar" />
+            <img src={url} alt="user avatar" />
           </div>
         </div>
 

@@ -19,16 +19,21 @@ export const signup = async (req, res) => {
     // HASH PASSWORD HERE
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
-
+    let profilePicPath;
+    if (req.file) {
+      profilePicPath = `/uploads/${req.file.filename}`;
+    } else {
+      profilePicPath =
+        gender === "male"
+          ? `https://avatar.iran.liara.run/public/boy?username=${username}`
+          : `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    }
     const newUser = new User({
       fullName,
       username,
       password: hashedPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic: profilePicPath,
     });
 
     if (newUser) {
@@ -40,7 +45,7 @@ export const signup = async (req, res) => {
         _id: newUser._id,
         fullName: newUser.fullName,
         username: newUser.username,
-        profilePic: newUser.profilePic,
+        profilePic: req.file.path,
       });
     } else {
       res.status(400).json({ error: "Invalid user data" });
@@ -57,7 +62,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username });
     const isPasswordCorrect = await bcrypt.compare(
       password,
-      user?.password || "",
+      user?.password || ""
     );
 
     if (!user || !isPasswordCorrect) {

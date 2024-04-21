@@ -13,6 +13,7 @@ const useSignup = () => {
     password,
     confirmPassword,
     gender,
+    profileImage,
   }) => {
     const success = handleInputErrors({
       fullName,
@@ -21,20 +22,21 @@ const useSignup = () => {
       confirmPassword,
       gender,
     });
+
     if (!success) return;
 
+    const formData = new FormData();
+    formData.append("fullName", fullName);
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    formData.append("gender", gender);
+    formData.append("profileImage", profileImage);
     setLoading(true);
     try {
       const res = await fetch(END_POINTS.SIGNUP, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName,
-          username,
-          password,
-          confirmPassword,
-          gender,
-        }),
+        body: formData,
       });
 
       const data = await res.json();

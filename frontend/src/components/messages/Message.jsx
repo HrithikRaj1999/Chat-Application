@@ -12,14 +12,14 @@ const Message = ({ message }) => {
     ? authUser.profilePic
     : selectedConversation?.profilePic;
   const bubbleBgColor = fromMe ? "bg-blue-500" : "";
-
+  const url = `${import.meta.env.VITE_BASE_API_URL}${profilePic}`;
   const shakeClass = message.shouldShake ? "shake" : "";
 
   return (
     <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS chat bubble component" src={profilePic} />
+          <img alt="Tailwind CSS chat bubble component" src={url} />
         </div>
       </div>
       <div
