@@ -12,8 +12,11 @@ export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const { authUser } = useAuthContext();
-  // const ioApiUrl = import.meta.env.VITE_BASE_API_URL;
-  const ioApiUrl = "https://chat-application-ugvx.onrender.com";
+
+  // Kindly uncomment this code to run locally and comment the render link
+  const ioApiUrl = import.meta.env.VITE_BASE_API_URL;
+
+  // const ioApiUrl = "https://chat-application-ugvx.onrender.com";
   useEffect(() => {
     if (authUser) {
       const socket = io(ioApiUrl, {
