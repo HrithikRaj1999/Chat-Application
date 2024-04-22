@@ -119,7 +119,7 @@ To get this project running locally, follow these steps:
    ```
 3. Start the server:
    ```bash
-   npm start
+   npm run dev
    ```
 4. Open your browser and visit `http://localhost:3000`.
 
